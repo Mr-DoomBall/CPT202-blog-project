@@ -1,4 +1,4 @@
-import {  Menu, Button } from 'antd'
+import {  Menu, Button, Avatar } from 'antd'
 import {
   AppstoreOutlined,
   MenuUnfoldOutlined,
@@ -7,10 +7,13 @@ import {
   DesktopOutlined,
   ContainerOutlined,
   MailOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation, Outlet } from 'react-router-dom'
+
+import '../css/Dashboard.scss'
 
 
 export default function Dashboard() {
@@ -47,10 +50,12 @@ export default function Dashboard() {
 
   return (
     <>
-      <div style={{ width: 256 }}>
+      <div className='navi'>
         <Button type='primary' onClick={toggleCollapsed} style={{ marginButtom: 16 }}>
           {React.createElement(menuState ? MenuUnfoldOutlined : MenuFoldOutlined)}
         </Button>
+        <Avatar size={32} icon={<UserOutlined/>} />
+        <span>{info.state.UN}</span>
         <Menu mode='inline' theme='dark' inlineCollapsed={menuState}>
           <Menu.Item key="1" icon={<MailOutlined />}>
           <a onClick={toMes}>Message</a>
@@ -64,7 +69,6 @@ export default function Dashboard() {
 
         </Menu>
       </div>
-      <h1>Welcome, {info.state.UN}</h1>
 
       <Outlet/>
 

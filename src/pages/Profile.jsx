@@ -4,12 +4,12 @@ import { Input } from 'antd'
 
 
 export default function Profile() {
-  let pinfo = useLocation()
+  let info = useLocation()
   const [condition, setCondition] = useState("")
   const [intro, setIntro] = useState("")
   const { TextArea } = Input;
 
-  console.log(pinfo)
+  console.log(info)
 
   useEffect(() => {
     // fetch("url")
@@ -44,7 +44,7 @@ export default function Profile() {
   return (
     <>
       <div>
-        <h2>This is the Profile of {pinfo.state.Uname}</h2>
+        <h2>This is the Profile of {info.state.Uname}</h2>
         <p>self introduction:</p>
         <p>{intro}</p>
         <TextArea rows={4} style={{ width: 300 }} placeholder={intro} disabled={condition} onChange={(e) => setIntro(e.target.value)} />

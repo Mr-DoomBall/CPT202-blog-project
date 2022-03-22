@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Layout, Divider } from 'antd'
+import { Input, Layout, Divider, Rate } from 'antd'
 
+import { HeartOutlined } from '@ant-design/icons';
+
+import '../css/Message.scss'
 
 export default function Message() {
     const { TextArea } = Input;
@@ -21,13 +24,15 @@ export default function Message() {
 
     function showMes(i) {
         return (
-            <>
-                <p>{i} + {message[i]?.username} + {message[i]?.password}</p>
+            <div className='mes'>
+                <p>{i} . {message[i]?.username} . {message[i]?.password}</p>
                 <TextArea rows={2} style={{ width: 200 }} placeholder={message[i]?.password} />
                 <button>edit</button>
                 <button>save</button>
-                <Divider />
-            </>
+                <br />
+                <Rate character={<HeartOutlined />} allowHalf /><span>Share your feeling!</span>
+                <Divider />               
+            </div>
         )
     }
 
