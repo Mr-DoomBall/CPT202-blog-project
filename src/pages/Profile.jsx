@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Input } from 'antd'
 
+
 export default function Profile() {
-  let info = useLocation()
+  let pinfo = useLocation()
   const [condition, setCondition] = useState("")
   const [intro, setIntro] = useState("")
   const { TextArea } = Input;
-  
+
+  console.log(pinfo)
+
   useEffect(() => {
     // fetch("url")
     //   .then(res => res.json)
@@ -19,8 +22,8 @@ export default function Profile() {
 
     setCondition(true)
     setIntro("Hello, CPT202!")
-  },[])
-  
+  }, [])
+
   function editText() {
     setCondition(false)
     console.log("edit mode")
@@ -39,13 +42,15 @@ export default function Profile() {
   }
 
   return (
-    <div>
-      <h2>This is the Profile of {info.state.Uname}</h2>
-      <p>self introduction:</p>
-      <p>{intro}</p>
-      <TextArea rows={4} style={{width:300}}  placeholder={intro} disabled={condition} onChange={(e) => setIntro(e.target.value)} />
-      <button onClick={editText}>edit</button>
-      <button onClick={saveText}>save</button>
-    </div>
+    <>
+      <div>
+        <h2>This is the Profile of {pinfo.state.Uname}</h2>
+        <p>self introduction:</p>
+        <p>{intro}</p>
+        <TextArea rows={4} style={{ width: 300 }} placeholder={intro} disabled={condition} onChange={(e) => setIntro(e.target.value)} />
+        <button onClick={editText}>edit</button>
+        <button onClick={saveText}>save</button>
+      </div>
+    </>
   )
 }
