@@ -1,7 +1,18 @@
 .loginform {
+    margin: auto;
     text-align: center;
+    width: 25vh;
 }
 
 .pre {
-    height: 300px;
+    text-align: center;
+    padding-top: 30vh;
+}
+
+.Main {
+    background-image: url('../../public/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    margin-top: -0.1rem;
 }

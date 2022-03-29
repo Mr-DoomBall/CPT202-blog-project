@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Input } from "antd";
+import { Input, Button, Form, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+import localStorage from "localStorage";
 
 import './css/Login.scss'
 
@@ -8,6 +11,10 @@ export default function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const navi = useNavigate()
+
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+    };
 
     //读取来自后端URL的数据
     // 检验账号密码是否正确
@@ -28,9 +35,10 @@ export default function Login() {
         // })
 
         fetch(" ./userinfo.json", {
-            // method: "POST",
+            method: "POST",
             // data : {
-
+            //     username: ,
+            //     password
             // }
         })
             .then(res => res.json())
@@ -46,11 +54,9 @@ export default function Login() {
         {
             if ((username === "Alpha") && (password === "123456")) {
                 console.log(1)
+                localStorage.setItem("user", username)
                 navi('/dashboard/message', {
-                    state: {
-                        UN: username,
-                        PW: password
-                    }
+
                 })
             }
             else {
@@ -73,22 +79,54 @@ export default function Login() {
 
     //表单主体
     return (
-        <>
-        <div className="pre">
-
-        </div>
-            <div className="loginform">
+        <div className="Main">
+            <div className="pre">
                 <h1>Simple Blog connect</h1>
                 <p>Login page</p>
-                <Input style={{ width: 200 }} className="login-input" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                <br />
-                <Input style={{ width: 200 }} className="login-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <br />
-                <button onClick={Checkinfo}>Sign in</button>
-                <br />
-                <button onClick={sendInfo}>Register</button>
             </div>
-        </>
+            <div className="loginform">
+                <Form
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                >
+                    <Form.Item
+                        name="username"
+                        rules={[{ required: true, message: 'Please input your Username!' }]}
+                    >
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your Password!' }]}
+                    >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
+
+                        <a className="login-form-forgot" href="">
+                            Forgot password
+                        </a>
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={Checkinfo}>
+                            Log in
+                        </Button>
+                        Or <a onClick={sendInfo}>register now!</a>
+                    </Form.Item>
+                </Form>
+            </div>
+        </div>
 
     )
 }
