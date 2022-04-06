@@ -1,0 +1,10 @@
+{
+    "userinfo" :
+        {
+            "username": "Test User Alpha",
+            "Avatar": "https://joeschmoe.io/api/v1/random",
+            "Email Address": "Alpha@student.xjtlu.edu.cn",
+            "gender": "Male",
+            "self Intro": "Normal people"
+        }
+}

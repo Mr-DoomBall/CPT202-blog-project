@@ -5,19 +5,17 @@ import {
   MenuFoldOutlined,
   DesktopOutlined,
   MailOutlined,
+  ContainerOutlined,
 } from '@ant-design/icons';
 
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation, Outlet } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 
 import '../css/Dashboard.scss'
 
 
 export default function Dashboard() {
-  let info = useLocation()
-
   const { Header, Sider, Content } = Layout
-
   const [menuState, setMenuState] = useState("")
   const navi = useNavigate()
 
@@ -45,6 +43,12 @@ export default function Dashboard() {
     })
   }
 
+  function toChat() {
+    navi('chatpage', {
+      
+    })
+  }
+
   function toggleCollapsed() {
     setMenuState(!menuState)
   }
@@ -64,6 +68,9 @@ export default function Dashboard() {
               </Menu.Item>
               <Menu.Item key="3" icon={<AppstoreOutlined />}>
                 <a onClick={toFList}>friendlist</a>
+              </Menu.Item>
+              <Menu.Item key='4' icon={<ContainerOutlined />}>
+                <a onClick={toChat}>ChatPage</a>
               </Menu.Item>
             </Menu>
           </div>

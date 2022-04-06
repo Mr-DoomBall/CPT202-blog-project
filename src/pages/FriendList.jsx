@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { List, message } from 'antd'
+import { List, message, Button, Drawer } from 'antd'
 import VirtualList from 'rc-virtual-list'
 import SingleFriendList from '../component/SingleFriendList';
 
 import '../css/FriendList.scss'
+import localStorage from 'localStorage'
+import AddFriendDrawer from '../component/AddFriendDrawer';
 
 const fakeDataUrl =
   'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
@@ -11,6 +13,15 @@ const ContainerHeight = 800;
 
 export default function FriendList() {
   const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(false)
+  const user = localStorage.getItem('user')
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
 
   const appendData = () => {
     fetch(fakeDataUrl)
@@ -34,6 +45,10 @@ export default function FriendList() {
 
   return (
     <div className='flistBlock'>
+      <Button type='primary' onClick={showDrawer}>add friend</Button>
+      <Drawer title='add friend' placement='right' onClose={onClose} visible={visible}>
+        <AddFriendDrawer />
+      </Drawer>
       <List>
         <VirtualList
           data={data}

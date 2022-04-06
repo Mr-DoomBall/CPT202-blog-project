@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { Descriptions, Badge, Input, Avatar, Drawer, Button, Form } from 'antd'
+import { Descriptions, Badge, Avatar, Drawer, Button} from 'antd'
 
 import '../css/Profile.scss'
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
+import localStorage from 'localStorage';
+import testdata from '../constants/ProfileTestData.json'
+import ProfileInfoEdit from '../component/ProfileInfoEdit';
 
 export default function Profile() {
   const [visible, setVisible] = useState(false)
-  const [intro, setIntro] = useState("default intro")
+  const user = localStorage.getItem('user')
 
   useEffect(() => {
-    // fetch("url")
+    // fetch("url", {
+    //   method:'POST',
+    //   data: {
+    //     username: user
+    //   }
+    // })
     //   .then(res => res.json)
     //   .then(
     //     (result) => {
     //       setIntro(result.lintro)
     //     }
     //   )
-
-    setIntro("default intro")
   }, [])
 
   const showDrawer = () => {
@@ -31,23 +32,16 @@ export default function Profile() {
     setVisible(false);
   };
 
-  // fetch("url",{
-  //   method:"POST",
-  //   data:{
-  //     pIntro : intro
-  //   }
-  // })
-
   return (
     <div className='pinfoBlock'>
-      <div>
-        <Avatar size='large' shape='square' src="https://joeschmoe.io/api/v1/random" />
+      <div className='avatar'>
+        <Avatar size={200} shape='square' src={testdata.userinfo.Avatar} />
       </div>
 
       <Descriptions title="User Info" bordered>
-        <Descriptions.Item label="Username">Test user Alpha</Descriptions.Item>
-        <Descriptions.Item label="Email address">Alpha@student.xjtlu.edu.cn</Descriptions.Item>
-        <Descriptions.Item label="gender">Male</Descriptions.Item>
+        <Descriptions.Item label="Username">{testdata.userinfo.username}</Descriptions.Item>
+        <Descriptions.Item label="Email address">{testdata.userinfo['Email Address']}</Descriptions.Item>
+        <Descriptions.Item label="gender">{testdata.userinfo.gender}</Descriptions.Item>
         <Descriptions.Item label="Register time">2022-03-15 10:05:37</Descriptions.Item>
         <Descriptions.Item label="Last login Time" span={2}>
           2022-03-24 17:04:19
@@ -56,31 +50,13 @@ export default function Profile() {
           <Badge status="processing" text="Online" />
         </Descriptions.Item>
         <Descriptions.Item label="self Intro">
-          {intro}
+        {testdata.userinfo['self Intro']}
         </Descriptions.Item>
       </Descriptions>
 
       <Button type='primary' onClick={showDrawer}>edit</Button>
       <Drawer title='Change info' placement='right' onClose={onClose} visible={visible}>
-        <Form {...layout} name="nest-messages" >
-          <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'gender']} label="Gender" >
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'introduction']} label="Introduction">
-            <Input.TextArea />
-          </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+        <ProfileInfoEdit />
       </Drawer>
     </div>
   )

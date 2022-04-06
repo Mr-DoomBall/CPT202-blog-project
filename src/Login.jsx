@@ -6,6 +6,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import localStorage from "localStorage";
 
 import './css/Login.scss'
+import testData from '../src/constants/dummyCheck.json'
 
 export default function Login() {
     const [username, setUsername] = useState("")
@@ -20,39 +21,31 @@ export default function Login() {
     // 检验账号密码是否正确
     //账号密码一致则跳转至dashboard(finished)
     function Checkinfo() {
-
-        //带参数POST请求(axios 和 fetch)
-        // axios({
-        //     method: "post",
-        //     url: "url",
+        // fetch("https://localhost:8088/login", {
+        //     method: "POST",
         //     data: {
-        //         参数名: 参数值
+        //         user: username,
+        //         pass: password
         //     }
-        // }).then(res => {
-
-        // }).catch(err => {
-
         // })
-
-        fetch(" ./userinfo.json", {
-            method: "POST",
-            // data : {
-            //     username: ,
-            //     password
-            // }
-        })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    console.log(result.userinfo[0])
-                }
-            )
-            .catch(
-                console.log(0)
-            )
+        //     .then(res => res.json())
+        //     .then(
+        //         (result) => {
+        //             if (result === 1) {
+        //                 localStorage.setItem("user", username)
+        //                 navi('/dashboard/message')
+        //             }
+        //             else {
+        //                 alert("Username or password is not correct")
+        //             }
+        //         }
+        //     )
+        //     .catch(
+        //         alert('an unexcept error occur')
+        //     )
 
         {
-            if ((username === "Alpha") && (password === "123456")) {
+            if (testData.check === 1) {
                 console.log(1)
                 localStorage.setItem("user", username)
                 navi('/dashboard/message', {
@@ -66,15 +59,12 @@ export default function Login() {
         }
     }
 
-    function sendInfo() {
-        fetch('./', {
-            method: 'POST',
-            data: {
-                RUname: username,
-                RPword: password
-            }
+    function toRegi() {
+        navi('/register')
+    }
 
-        })
+    function toChange() {
+        navi('/changepassword')
     }
 
     //表单主体
@@ -88,7 +78,7 @@ export default function Login() {
                 <Form
                     name="normal_login"
                     className="login-form"
-                    initialValues={{ remember: true }}
+                    initialValues={{ remember: false }}
                     onFinish={onFinish}
                 >
                     <Form.Item
@@ -105,24 +95,21 @@ export default function Login() {
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)} 
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
-
-                        <a className="login-form-forgot" href="">
-                            Forgot password
-                        </a>
+                        <a className="login-form-forgot" onClick={toChange}>Forgot password</a>
                     </Form.Item>
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" onClick={Checkinfo}>
                             Log in
                         </Button>
-                        Or <a onClick={sendInfo}>register now!</a>
+                        Or <a onClick={toRegi}>register now!</a>
                     </Form.Item>
                 </Form>
             </div>
@@ -130,3 +117,14 @@ export default function Login() {
 
     )
 }
+
+//带参数POST请求(axios 和 fetch)
+        // axios({
+        //     method: "post",
+        //     url: "url",
+        //     data: {
+        //         参数名: 参数值
+        //     }
+        // }).then(res => {
+        // }).catch(err => {
+        // })

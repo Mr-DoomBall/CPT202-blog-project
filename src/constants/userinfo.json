@@ -1,0 +1,13 @@
+
+
+{
+    "userinfo": [
+        {"username" : "Alpha", "password" : "123456"},
+        {"username" : "Beta", "password" : "123456"},
+        {"username" : "Gamma", "password" : "123456"}
+    ],
+
+    "check": [
+        {"state" : 1}
+    ]
+}
