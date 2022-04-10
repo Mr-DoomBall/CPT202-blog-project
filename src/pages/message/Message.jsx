@@ -49,7 +49,7 @@ export default function Message() {
                                 data={mesTestData.bloginfo}
                                 height={700}
                                 itemHeight={47}
-                                itemKey="author"
+                                itemKey="blogid"
                                 onScroll={onScroll}
                             >
                                 {item => (

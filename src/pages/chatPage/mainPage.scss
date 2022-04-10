@@ -10,4 +10,20 @@
     min-width: 600px;
     border: 1px solid black;
     color:white;
+    margin: auto;
+    float: left;
+}
+
+.left-container {
+    float: left;
+    background-color: rgb(74, 173, 50);
+    width: 200px;
+    height: 90vh;
+    margin: auto;
+}
+
+.block {
+    width: 200px;
+    height: 90vh;
+    float: left;
 }

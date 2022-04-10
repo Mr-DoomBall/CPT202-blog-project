@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Descriptions, Badge, Avatar, Drawer, Button} from 'antd'
+import { Descriptions, Badge, Avatar} from 'antd'
 
 import '../css/Profile.scss'
 import localStorage from 'localStorage';
@@ -7,7 +7,6 @@ import testdata from '../constants/ProfileTestData.json'
 import ProfileInfoEdit from '../component/ProfileInfoEdit';
 
 export default function Profile() {
-  const [visible, setVisible] = useState(false)
   const user = localStorage.getItem('user')
 
   useEffect(() => {
@@ -24,13 +23,6 @@ export default function Profile() {
     //     }
     //   )
   }, [])
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
 
   return (
     <div className='pinfoBlock'>
@@ -54,10 +46,7 @@ export default function Profile() {
         </Descriptions.Item>
       </Descriptions>
 
-      <Button type='primary' onClick={showDrawer}>edit</Button>
-      <Drawer title='Change info' placement='right' onClose={onClose} visible={visible}>
-        <ProfileInfoEdit />
-      </Drawer>
+      <ProfileInfoEdit />
     </div>
   )
 }

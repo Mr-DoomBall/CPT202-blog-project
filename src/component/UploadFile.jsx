@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Upload } from 'antd';
 
-const UploadFile = (limit) => {
+const UploadFile = (limit, {enterPicList}) => {
     const [fileList, setFileList] = useState([]);
     
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
-        console.log(fileList)
     };
+
+    const beforeUpload = (file) => {
+        console.log(file.uid)
+        // enterPicList(file.uid)
+    }
 
     const onPreview = async file => {
         let src = file.url;
@@ -31,6 +35,7 @@ const UploadFile = (limit) => {
             fileList={fileList}
             onChange={onChange}
             onPreview={onPreview}
+            beforeUpload={beforeUpload}
         >
             {fileList.length < limit.limit && '+ Upload'}
         </Upload>

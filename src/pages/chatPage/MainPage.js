@@ -3,6 +3,7 @@ import './mainPage.scss';
 import Header from './Header/Header'
 import ChatContent from './ChatContent/ChatContent'
 import ChatInputField from './ChatInputField/ChatInputField'
+import Sider from './Sider/Sider';
 
 function MainPage(props) {
     const [message, setMessage] = useState({})
@@ -19,11 +20,17 @@ function MainPage(props) {
     }
 
     return (
-        <div className='main-container'>
-            <Header />
-            <ChatContent message={message} />
-            <ChatInputField enterMessage={enterMessage} />
-        </div>
+        <>
+            <div className='block'/>
+            <div className='left-container'>
+                <Sider />
+            </div>
+            <div className='main-container'>
+                <Header />
+                <ChatContent message={message} />
+                <ChatInputField enterMessage={enterMessage} />
+            </div>
+        </>
     );
 }
 

@@ -1,31 +1,18 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-import UploadFile from '../../../../component/UploadFile';
+import { Button, message } from 'antd';
+import ProForm, { ModalForm, ProFormText, ProFormUploadButton } from '@ant-design/pro-form';
 
 import localStorage from 'localStorage';
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
-
 const NewMessage = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [content, setContent] = useState()
     const user = localStorage.getItem('user')
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-        //we should call api method here
+    const appendData = (value) => {
+        // we should call api method here
         // fetch('https://localhost:8088/blog', {
         //     method:'POST',
         //     data:{
-        //         blogContent: content,
-        //         blogAuthor: user
+        //         value
         //     }
         // }).then(res => res.json())
         // .then(
@@ -42,26 +29,36 @@ const NewMessage = () => {
         //     alert('error')
         // )
         alert('post succeed')
+        console.log(value)
     };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
 
     return (
         <>
-            <Button type='primary' onClick={showModal}>Post my blog</Button>
-            <Modal title="new blog" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <Form {...layout} name="new-mes" >
-                    <Form.Item name={'content'} label="new content" >
-                        <Input.TextArea onChange={(e) => setContent(e.target.value)} />
-                    </Form.Item>
-                    <Form.Item name={'pic'} label="picture" >
-                        <UploadFile limit={5}/>
-                    </Form.Item>                    
-                </Form>
-            </Modal>
+            <ModalForm title="新建表单" trigger={<Button type='primary' >Post my blog</Button>} autoFocusFirstInput modalProps={{
+                onCancel: () => console.log('run'),
+            }} onFinish={async (values) => {
+                // console.log(values);
+                appendData(values)
+                message.success('提交成功');
+                return true;
+            }}>
+                <ProForm.Group>
+                    <ProFormText width="md" name="content" label="new content" />
+                </ProForm.Group>
+                <ProForm.Group>
+                    <ProFormUploadButton
+                        name="upload"
+                        label="Upload"
+                        max={5}
+                        fieldProps={{
+                            name: 'file',
+                            listType: 'picture-card',
+                        }}
+                        action="/upload.do"
+                    />
+                </ProForm.Group>
+            </ModalForm>
+
         </>
     );
 };

@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-import { Input, Button, Form } from 'antd'
+import { Input, Button, Form, message } from 'antd'
+import ProForm, { ModalForm, ProFormText, ProFormUploadButton } from '@ant-design/pro-form';
 
 import localStorage from 'localStorage';
-import UploadFile from './UploadFile';
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 export default function ProfileInfoEdit() {
   const user = localStorage.getItem('user')
@@ -15,7 +10,7 @@ export default function ProfileInfoEdit() {
   const [editGender, setEditGender] = useState()
   const [editIntro, setEditIntro] = useState()
 
-  const handleSubmit = () => {
+  const appendData = () => {
     // fetch('url', {
     //   method: "POST",
     //   data: {
@@ -40,24 +35,31 @@ export default function ProfileInfoEdit() {
   }
 
   return (
-    <Form {...layout} name="nest-messages" >
-      <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
-        <Input onChange={(e) => setEditEmail(e.target.value)}/>
-      </Form.Item>
-      <Form.Item name={['user', 'gender']} label="Gender" >
-        <Input onChange={(e) => setEditGender(e.target.value)}/>
-      </Form.Item>
-      <Form.Item name={['user', 'introduction']} label="Introduction">
-        <Input.TextArea onChange={(e) => setEditIntro(e.target.value)}/>
-      </Form.Item>
-      <Form.Item label="new Avatar">
-        <UploadFile limit={1}/>
-      </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <ModalForm title="新建表单" trigger={<Button type='primary' >edit</Button>} autoFocusFirstInput modalProps={{
+      onCancel: () => console.log('run'),
+    }} onFinish={async (values) => {
+      console.log(values);
+      appendData(values)
+      message.success('提交成功');
+      return true;
+    }}>
+      <ProForm.Group>
+        <ProFormText width="md" name="Email" label="new Email" />
+        <ProFormText width="md" name="gender" label="new gender" />
+        <ProFormText width="md" name="introduction" label="new introduction" />
+      </ProForm.Group>
+      <ProForm.Group>
+        <ProFormUploadButton
+          name="upload"
+          label="Upload"
+          max={1}
+          fieldProps={{
+            name: 'file',
+            listType: 'picture-card',
+          }}
+          action="/upload.do"
+        />
+      </ProForm.Group>
+    </ModalForm>
   )
 }
