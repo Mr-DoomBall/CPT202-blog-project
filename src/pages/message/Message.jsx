@@ -15,7 +15,6 @@ export default function Message() {
     const [ableCom, setAbleCom] = useState(true)
     const { Footer, Content } = Layout;
     const user = localStorage.getItem('user')
-    console.log(mesTestData)
 
     const appendData = () => {
         // fetch("https://localhost:8088/blog/view", {

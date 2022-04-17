@@ -8,6 +8,7 @@ function ChatContent({ message }) {
 
     const [chatData, setChatData] = useState([])
     useEffect(() => {
+        //call api method here.
         setChatData(dummyChatItems)
     }, [])
 

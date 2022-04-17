@@ -12,6 +12,7 @@ const NewMessage = () => {
         // fetch('https://localhost:8088/blog', {
         //     method:'POST',
         //     data:{
+        //         username:user,
         //         value
         //     }
         // }).then(res => res.json())

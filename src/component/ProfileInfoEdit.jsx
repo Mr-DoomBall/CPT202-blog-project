@@ -15,22 +15,20 @@ export default function ProfileInfoEdit() {
     //   method: "POST",
     //   data: {
     //     username: user,
-    //     email: editEmail,
-    //     gender: editGender,
-    //     intro: editIntro
+    //     value
     //   }
     // })
-    // .then(res => res.json())
-    // .then(
-    //   (result) => {
-    //     if (result === 1) {
-    //       alert('change succeed')
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+    //       if (result === 1) {
+    //         alert('change succeed')
+    //       }
+    //       else {
+    //         alert('change fail')
+    //       }
     //     }
-    //     else {
-    //       alert('change fail')
-    //     }
-    //   }
-    // )
+    //   )
     alert('change successful')
   }
 

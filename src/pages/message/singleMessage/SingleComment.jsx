@@ -1,5 +1,5 @@
 import React, { createElement, useEffect, useState } from 'react';
-import { Comment, Tooltip } from 'antd'
+import { Comment, Tooltip, Image } from 'antd'
 import Editor from './compoment/Editor';
 import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled } from '@ant-design/icons';
 import EditMessage from './editMessage/EditMessage';
@@ -27,7 +27,6 @@ function SingleComment({ item }) {
     };
 
     const initialAction = (actions) => {
-        console.log(actions)
         // setLikes(actions.liken)
         // setDislikes(actions.disliken)
 
@@ -49,6 +48,14 @@ function SingleComment({ item }) {
             (user === item.author)?(<EditMessage id={item.blogid}/>):null,
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>,
             (user === item.author)?(<a onClick={deMes}>delete</a>):null
+        ]
+    }
+
+    const initContent = (content) => {
+        return [
+             content,
+            <br />,
+            <Image width={100} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
         ]
     }
 
@@ -81,7 +88,7 @@ function SingleComment({ item }) {
                 actions={initialAction(item.actions)}
                 author={item.author}
                 avatar={item.avatar}
-                content={item.content}
+                content={initContent(item.content)}
                 datetime={item.datetime}
             />
             {!comment && <Editor />}

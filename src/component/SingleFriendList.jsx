@@ -17,6 +17,8 @@ export default function SingleFriendList({item}) {
                 description={item.email}
             />
             <div>Content</div>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <div>Delete</div>
         </List.Item>
     )
 }
