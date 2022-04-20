@@ -6,30 +6,33 @@ import localStorage from 'localStorage';
 
 export default function ProfileInfoEdit() {
   const user = localStorage.getItem('user')
-  const [editEmail, setEditEmail] = useState()
-  const [editGender, setEditGender] = useState()
-  const [editIntro, setEditIntro] = useState()
 
-  const appendData = () => {
-    // fetch('url', {
-    //   method: "POST",
-    //   data: {
-    //     username: user,
-    //     value
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(
-    //     (result) => {
-    //       if (result === 1) {
-    //         alert('change succeed')
-    //       }
-    //       else {
-    //         alert('change fail')
-    //       }
-    //     }
-    //   )
-    alert('change successful')
+  const appendData = (value) => {
+    fetch('http://localhost:8088/user/edit', {
+      method: "POST",
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          email: value.email,
+          sex: value.sex,
+          intro: value.intro,
+          avatar: value.upload[0].response.data.url
+        }
+      )
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          if (result.status === 200) {
+            alert(result.message)
+          }
+          else {
+            alert(result.message)
+          }
+        }
+      )
   }
 
   return (
@@ -42,9 +45,9 @@ export default function ProfileInfoEdit() {
       return true;
     }}>
       <ProForm.Group>
-        <ProFormText width="md" name="Email" label="new Email" />
-        <ProFormText width="md" name="gender" label="new gender" />
-        <ProFormText width="md" name="introduction" label="new introduction" />
+        <ProFormText width="md" name="email" label="new Email" />
+        <ProFormText width="md" name="sex" label="new gender" />
+        <ProFormText width="md" name="intro" label="new introduction" />
       </ProForm.Group>
       <ProForm.Group>
         <ProFormUploadButton
@@ -55,7 +58,7 @@ export default function ProfileInfoEdit() {
             name: 'file',
             listType: 'picture-card',
           }}
-          action="/upload.do"
+          action="http://localhost:8088/fileUpload"
         />
       </ProForm.Group>
     </ModalForm>

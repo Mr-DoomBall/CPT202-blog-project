@@ -1,6 +1,7 @@
 import React from 'react'
 import { List, Avatar } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import DeleteFriend from './DeleteFriend'
 
 export default function SingleFriendList({item}) {
     const navi = useNavigate()
@@ -10,15 +11,15 @@ export default function SingleFriendList({item}) {
     }
 
     return (
-        <List.Item key={item.email}>
+        <List.Item>
             <List.Item.Meta
-                avatar={<Avatar src={item.picture.large} />}
-                title={<a onClick={goChat}>{item.name.last}</a>}
+                avatar={<Avatar src={item.avatar} />}
+                title={<a onClick={goChat}>{item.userName}</a>}
                 description={item.email}
             />
             <div>Content</div>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <div>Delete</div>
+            <DeleteFriend tar={item.userId}/>
         </List.Item>
     )
 }

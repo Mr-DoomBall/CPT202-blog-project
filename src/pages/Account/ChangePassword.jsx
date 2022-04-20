@@ -10,27 +10,30 @@ export default function ChangePassword() {
     const [newpassword, setNewpassword] = useState()
 
     const handleSubmit = () => {
-        // fetch('https://localhost:8088/editpassword', {
-        //     method: "POST",
-        //     data: {
-        //         user: username,
-        //         orgpass: orgpassword,
-        //         newpass: newpassword
-        //     }
-        // }
-        // )
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) => {
-        //             if (result === 1) {
-        //                 alert('Change successful')
-        //             }
-        //             else {
-        //                 alert('Change attempt failed')
-        //             }
-        //         }
-        //     )
-        alert('Change successful')
+        fetch('http://localhost:8088/password/edit', {
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    userName: username,
+                    originalPassword: orgpassword,
+                    password: newpassword
+                }
+            )
+        }
+        )
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    if (result.status === 200) {
+                        alert(result.message)
+                    }
+                    else {
+                        alert(result.message)
+                    }
+                }
+            )
     }
 
     return (

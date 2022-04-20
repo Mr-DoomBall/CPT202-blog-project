@@ -12,21 +12,20 @@ import NewMessage from './singleMessage/newMessage/NewMessage';
 
 export default function Message() {
     const [message, setMessage] = useState("")
-    const [ableCom, setAbleCom] = useState(true)
     const { Footer, Content } = Layout;
     const user = localStorage.getItem('user')
 
     const appendData = () => {
-        // fetch("https://localhost:8088/blog/view", {
-        //     method: 'POST'
-        // })
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) => {
-        //             setMessage(result)
-        //             console.log(result)
-        //         }
-        //     )
+        fetch("http://localhost:8088/blog/all", {
+            method: "GET",
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setMessage(result.data)
+                }
+            )
     }
 
     useEffect(() => {
@@ -45,7 +44,7 @@ export default function Message() {
                         <NewMessage />
                         <List>
                             <VirtualList
-                                data={mesTestData.bloginfo}
+                                data={message}
                                 height={700}
                                 itemHeight={47}
                                 itemKey="blogid"

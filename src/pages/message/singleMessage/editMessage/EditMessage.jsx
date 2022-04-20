@@ -2,32 +2,36 @@ import React, { useState } from 'react';
 import { message } from 'antd';
 import ProForm, { ModalForm, ProFormText, ProFormUploadButton } from '@ant-design/pro-form';
 
-const EditMessage = (id) => {
+const EditMessage = (item) => {
 
     const appendData = () => {
         //we should call api method here
-        // fetch('https:// localhost:8088/blog/update',{
-        //     method: 'POST',
-        //     data: {
-        //         blogid: id.id,
-        //         value
-        //     }
-        // })
-        // .then(res => res.json())
-        // .then(
-        //     (result) => {
-        //         if (result === 1) {
-        //             alert('succeed')
-        //         }
-        //         else {
-        //             alert("fail")
-        //         }
-        //     }
-        // )
-        // .catch(
-        //     alert('error')
-        // )
-        alert('change succeed')
+        fetch('http://localhost:8088/blog/edit',{
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    blogId: item.item.blogId,
+                    content: item.item.content,
+                    images: item.item.images
+                }
+            )
+        })
+        .then(res => res.json())
+        .then(
+            (result) => {
+                if (result.status === 200) {
+                    alert(result.message)
+                }
+                else {
+                    alert(result.message)
+                }
+            }
+        )
+        .catch(
+            err => alert('error')
+        )
     };
 
     return (
@@ -52,7 +56,7 @@ const EditMessage = (id) => {
                             name: 'file',
                             listType: 'picture-card',
                         }}
-                        action="/upload.do"
+                        action="http://localhost:8088/fileUpload"
                     />
                 </ProForm.Group>
             </ModalForm>

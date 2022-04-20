@@ -7,8 +7,6 @@ import '../css/FriendList.scss'
 import localStorage from 'localStorage'
 import AddFriendDrawer from '../component/AddFriendDrawer';
 
-const fakeDataUrl =
-  'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
 const ContainerHeight = 800;
 
 export default function FriendList() {
@@ -24,11 +22,13 @@ export default function FriendList() {
   };
 
   const appendData = () => {
-    fetch(fakeDataUrl)
+    fetch('http://localhost:8088/friend/all',{
+      method:'GET',
+      credentials: 'include'
+    })
       .then(res => res.json())
       .then(body => {
-        setData(data.concat(body.results));
-        message.success(`${body.results.length} more items loaded!`);
+        setData(data.concat(body.data));
         console.log(data)
       });
   };
@@ -54,7 +54,6 @@ export default function FriendList() {
           data={data}
           height={ContainerHeight}
           itemHeight={47}
-          itemKey="email"
           onScroll={onScroll}
         >
           {item => (

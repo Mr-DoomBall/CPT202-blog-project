@@ -45,9 +45,9 @@ function SingleComment({ item }) {
             </Tooltip>,
             <a onClick={() => setComment(!comment)}>reply to</a>,
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>,
-            (user === item.author)?(<EditMessage id={item.blogid}/>):null,
+            (user === item.user.userName)?(<EditMessage item={item}/>):null,
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>,
-            (user === item.author)?(<a onClick={deMes}>delete</a>):null
+            (user === item.user.userName)?(<a onClick={deMes}>delete</a>):null
         ]
     }
 
@@ -55,31 +55,35 @@ function SingleComment({ item }) {
         return [
              content,
             <br />,
-            <Image width={100} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
+            <Image width={100} src={item.images}/>
         ]
     }
 
     const deMes = () => {
-        //call api method here, send {item.blogid}, return 1 or 0
-        // fetch('https://localhost:8088/blog/delete',{
-        //     method: 'POST',
-        //     data: {
-        //         blogid: item.blogid
-        //     }
-        // }).then(res => res.json())
-        // .then(
-        //     (result) => {
-        //         if (result === 1) {
-        //             alert('succeed')
-        //         }
-        //         else {
-        //             alert('fail')
-        //         }
-        //     }
-        // )
-        // .catch(
-        //     alert('error')
-        // )
+        //call api method here, send {item.blogid}
+        fetch('http://localhost:8088/blog/delete',{
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    blogId: item.blogId
+                }
+            )
+        }).then(res => res.json())
+        .then(
+            (result) => {
+                if (result.status === 200) {
+                    alert(result.message)
+                }
+                else {
+                    alert(result.message)
+                }
+            }
+        )
+        .catch(
+            err => alert('error')
+        )
     }
 
     return (

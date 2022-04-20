@@ -13,25 +13,27 @@ export default function AddFriendDrawer() {
     const [targetUser, setTargetUser] = useState()
 
     const handleSubmit = () => {
-        // fetch('url',{
-        //     method:'POST',
-        //     data: {
-        //         username: user,
-        //         tUser: targetUser
-        //     }
-        // })
-        // .then(res => res.json())
-        // .then(
-        //     (result) => {
-        //         if (result === 1){
-        //             alert('add succeed')
-        //         }
-        //         else {
-        //             alert('add fail')
-        //         }
-        //     }
-        // )
-        alert('add succeed')
+        fetch('http://localhost:8088/friend/add',{
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    userName: targetUser
+                }
+            )
+        })
+        .then(res => res.json())
+        .then(
+            (result) => {
+                if (result.status === 200){
+                    alert(result.message)
+                }
+                else {
+                    alert(result.message)
+                }
+            }
+        )
     }
 
     return (

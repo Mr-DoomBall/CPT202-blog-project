@@ -21,42 +21,46 @@ export default function Login() {
     // 检验账号密码是否正确
     //账号密码一致则跳转至dashboard(finished)
     function Checkinfo() {
-        // fetch("https://localhost:8088/login", {
-        //     method: "POST",
-        //     data: {
-        //         user: username,
-        //         pass: password
+        fetch("http://localhost:8088/login", {
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    userName: username,
+                    password: password
+                }
+            )
+        })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    if (result.status === 200) {
+                        localStorage.setItem("user", username)
+                        navi('/dashboard/message')
+                    }
+                    else {
+                        alert(result.message)
+                    }
+                }
+            )
+            .catch(
+                err => alert('an unexcept error occur')
+            )
+
+        // {
+        //     if (testData.check === 1) {
+        //         console.log(1)
+        //         localStorage.setItem("user", username)
+        //         navi('/dashboard/message', {
+
+        //         })
         //     }
-        // })
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) => {
-        //             if (result === 1) {
-        //                 localStorage.setItem("user", username)
-        //                 navi('/dashboard/message')
-        //             }
-        //             else {
-        //                 alert("Username or password is not correct")
-        //             }
-        //         }
-        //     )
-        //     .catch(
-        //         alert('an unexcept error occur')
-        //     )
-
-        {
-            if (testData.check === 1) {
-                console.log(1)
-                localStorage.setItem("user", username)
-                navi('/dashboard/message', {
-
-                })
-            }
-            else {
-                console.log(0)
-                alert("Username or password is not correct")
-            }
-        }
+        //     else {
+        //         console.log(0)
+        //         alert("Username or password is not correct")
+        //     }
+        // }
     }
 
     function toRegi() {

@@ -9,25 +9,29 @@ export default function Register() {
     const [password, setPassword] = useState()
 
     const handleSubmit = () => {
-        // fetch('https://localhost:8088/account', {
-        //     method: "POST",
-        //     data: {
-        //         user: username,
-        //         pass: password
-        //     }              
-        // })
-        // .then(res => res.json())
-        // .then(
-        //     (result) => {
-        //         if (result === 1) {
-        //             alert('Register succeed')
-        //         }
-        //         else {
-        //             alert('Account already exist')
-        //         }
-        //     }
-        // )
-        alert("Register succeed")
+        fetch('http://localhost:8088/register', {
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    userName: username,
+                    password: password
+                }
+            )
+        })
+        .then(res => res.json())
+        .then(
+            (result) => {
+                if (result.status === 200) {
+                    alert(result.message)
+                }
+                else {
+                    alert(result.message)
+                }
+            }
+        )
+        // alert("Register succeed")
     }
 
     return (
