@@ -1,11 +1,12 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
 1.npm install
 2.npm start
 3.要先启动后端再启动前端
-
-## Available Scripts
 
 In the project directory, you can run:
 
