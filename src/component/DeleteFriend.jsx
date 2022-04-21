@@ -9,7 +9,7 @@ export default function DeleteFriend(tar) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(
                 {
-                    userId: tar
+                    userId: tar.tar
                 }
             )
         })

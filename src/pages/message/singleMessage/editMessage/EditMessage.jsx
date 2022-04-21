@@ -4,7 +4,7 @@ import ProForm, { ModalForm, ProFormText, ProFormUploadButton } from '@ant-desig
 
 const EditMessage = (item) => {
 
-    const appendData = () => {
+    const appendData = (value) => {
         //we should call api method here
         fetch('http://localhost:8088/blog/edit',{
             method: "POST",
@@ -13,8 +13,8 @@ const EditMessage = (item) => {
             body: JSON.stringify(
                 {
                     blogId: item.item.blogId,
-                    content: item.item.content,
-                    images: item.item.images
+                    content: value.content,
+                    images: value.upload[0].response.data.url
                 }
             )
         })
@@ -23,6 +23,7 @@ const EditMessage = (item) => {
             (result) => {
                 if (result.status === 200) {
                     alert(result.message)
+                    window.location.reload()
                 }
                 else {
                     alert(result.message)

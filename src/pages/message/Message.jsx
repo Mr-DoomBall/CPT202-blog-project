@@ -63,12 +63,3 @@ export default function Message() {
         </div>
     )
 }
-{/* <List
-    className="comment-list"
-    header='comment area'
-    itemLayout="horizontal"
-    dataSource={mesTestData.bloginfo}
-    renderItem={item => (
-        <SingleComment item={item} />
-    )}
-/> */}
