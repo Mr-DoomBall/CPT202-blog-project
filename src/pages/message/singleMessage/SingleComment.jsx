@@ -90,8 +90,8 @@ function SingleComment({ item }) {
         <li>
             <Comment
                 actions={initialAction(item.actions)}
-                author={item.author}
-                avatar={item.avatar}
+                author={item.user.userName}
+                avatar={item.user.avatar}
                 content={initContent(item.content)}
                 datetime={item.datetime}
             />
